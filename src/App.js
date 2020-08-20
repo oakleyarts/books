@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { Container, Spinner, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
@@ -9,8 +9,9 @@ import Pager from './components/Pager';
 import { getBooks } from './actions/books';
 
 const App = ({ books: { count, books, loading }, getBooks }) => {
+  const params = useMemo(() => new URLSearchParams(window.location.search), []);
   const [bookParams, setBookParams] = useState({
-    page: 1,
+    page: params.get('page') || 1,
     itemsPerPage: 20,
     filters: []
   });
@@ -18,6 +19,12 @@ const App = ({ books: { count, books, loading }, getBooks }) => {
   useEffect(() => {
     getBooks(bookParams);
   }, [bookParams]);
+
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    url.searchParams.set('page', bookParams.page);
+    window.history.pushState({}, '', url.toString());
+  }, [bookParams.page]);
 
   return (
     <div className="App">

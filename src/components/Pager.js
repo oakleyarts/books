@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 const Pager = ({ setBookParams, bookParams, count }) => {
   const { page, itemsPerPage } = bookParams;
-  const currentPage = page;
+  const currentPage = page - 1;
   const totalPages = Math.ceil(count / itemsPerPage);
 
   const updateRequest = (e) => {
