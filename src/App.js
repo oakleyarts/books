@@ -1,14 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { Container, Spinner } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import './styles/App.scss';
+import List from './components/List';
+import Book from './components/Book';
+import { getBooks } from './actions/books';
 
-// Redux stuff
-import { Provider } from 'react-redux';
-import store from './store';
+const App = ({ books: { count, books, loading }, getBooks }) => {
+  const [bookParams, setBookParams] = useState({
+    page: 1,
+    itemsPerPage: 20,
+    filters: []
+  });
 
-const App = () => (
-  <Provider store={store}>
-    <div className="App"></div>
-  </Provider>
-);
+  useEffect(() => {
+    getBooks(bookParams);
+  }, [getBooks]);
 
-export default App;
+  return (
+    <div className="App">
+      {loading ? (
+        <div className="loading">
+          <Spinner animation="border" role="status">
+            <span className="sr-only">Loading...</span>
+          </Spinner>
+        </div>
+      ) : (
+        <div className="page-wrapper">
+          <Container>
+            <List />
+          </Container>
+        </div>
+      )}
+    </div>
+  );
+};
+
+Book.propTypes = {
+  books: PropTypes.object.isRequired,
+  count: PropTypes.number.isRequired,
+  loading: PropTypes.bool.isRequired,
+  getBooks: PropTypes.func.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  books: state.books
+});
+
+export default connect(mapStateToProps, { getBooks })(App);

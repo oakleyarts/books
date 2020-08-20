@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 
-const Book = (props) => {
+const Book = (bookData) => {
   const {
     book_author,
     book_publication_city,
@@ -11,7 +11,7 @@ const Book = (props) => {
     book_pages,
     book_title,
     id
-  } = props;
+  } = bookData;
 
   return (
     <Card id={id}>
@@ -29,6 +29,7 @@ const Book = (props) => {
 };
 
 Book.propTypes = {
+  bookData: PropTypes.object.isRequired,
   book_author: PropTypes.array.isRequired,
   book_publication_city: PropTypes.string.isRequired,
   book_publication_country: PropTypes.string.isRequired,
