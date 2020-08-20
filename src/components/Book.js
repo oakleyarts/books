@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
+import { ListGroup } from 'react-bootstrap';
 
 const Book = (bookData) => {
   const {
@@ -18,11 +19,13 @@ const Book = (bookData) => {
       <Card.Body>
         <Card.Title>{book_title}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{book_author.toString()}</Card.Subtitle>
-        <Card.Text>
-          Number of pages: {book_pages}
-          Publication year: {book_publication_year}
-          Publication place: {` ${book_publication_city}, ${book_publication_country} `}
-        </Card.Text>
+        <ListGroup variant="flush">
+          <ListGroup.Item>Number of pages: {book_pages}</ListGroup.Item>
+          <ListGroup.Item>Publication year: {book_publication_year}</ListGroup.Item>
+          <ListGroup.Item>
+            Publication place: {` ${book_publication_city}, ${book_publication_country} `}
+          </ListGroup.Item>
+        </ListGroup>
       </Card.Body>
     </Card>
   );
