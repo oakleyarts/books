@@ -11,7 +11,7 @@ export const getBooks = ({ page, itemsPerPage, filters }) => async (dispatch) =>
   const body = JSON.stringify({ page, itemsPerPage, filters });
 
   try {
-    const res = await axios.post('http://nyx.vima.ejkt.gr:3000/api/books', body, config);
+    const res = await axios.post('http://nyx.vima.ekt.gr:3000/api/books', body, config);
 
     dispatch({
       type: GET_BOOKS,

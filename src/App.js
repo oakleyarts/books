@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Container, Spinner } from 'react-bootstrap';
+import { Container, Spinner, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import './styles/App.scss';
 import List from './components/List';
@@ -16,7 +16,7 @@ const App = ({ books: { count, books, loading }, getBooks }) => {
 
   useEffect(() => {
     getBooks(bookParams);
-  }, [getBooks]);
+  }, []);
 
   return (
     <div className="App">
@@ -29,6 +29,10 @@ const App = ({ books: { count, books, loading }, getBooks }) => {
       ) : (
         <div className="page-wrapper">
           <Container>
+            <Row className="justify-content-md-center">
+              <h2>Found {count} books</h2>
+            </Row>
+
             <List />
           </Container>
         </div>
