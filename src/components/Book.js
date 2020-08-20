@@ -24,7 +24,7 @@ Book.propTypes = {
   author: PropTypes.array.isRequired,
   city: PropTypes.string.isRequired,
   country: PropTypes.string.isRequired,
-  year: PropTypes.string.isRequired,
+  year: PropTypes.number.isRequired,
   pages: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired
 };

@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { Container, Spinner, Row } from 'react-bootstrap';
-import PropTypes from 'prop-types';
 import './styles/App.scss';
 import List from './components/List';
-import Book from './components/Book';
 import Pager from './components/Pager';
 import { getBooks } from './actions/books';
+import PropTypes from 'prop-types';
 
-const App = ({ books: { count, books, loading }, getBooks }) => {
+const App = ({ books: { count, loading }, getBooks }) => {
   const params = useMemo(() => new URLSearchParams(window.location.search), []);
   const [bookParams, setBookParams] = useState({
     page: params.get('page') || 1,
@@ -18,7 +17,7 @@ const App = ({ books: { count, books, loading }, getBooks }) => {
 
   useEffect(() => {
     getBooks(bookParams);
-  }, [bookParams]);
+  }, [bookParams, getBooks]);
 
   useEffect(() => {
     const url = new URL(window.location.href);
@@ -49,11 +48,8 @@ const App = ({ books: { count, books, loading }, getBooks }) => {
   );
 };
 
-Book.propTypes = {
-  books: PropTypes.object.isRequired,
-  count: PropTypes.number.isRequired,
-  loading: PropTypes.bool.isRequired,
-  getBooks: PropTypes.func.isRequired
+App.propTypes = {
+  books: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({

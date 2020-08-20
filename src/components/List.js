@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Book from './Book';
 import NoResults from './NoResults';
+import PropTypes from 'prop-types';
 
-export const List = (books) => {
+const List = (books) => {
   const booksList = books.books;
   const hasBooks = booksList.length > 0;
 
@@ -38,6 +39,10 @@ export const List = (books) => {
   ) : (
     <NoResults />
   );
+};
+
+List.propTypes = {
+  books: PropTypes.array.isRequired
 };
 
 const mapStateToProps = (state) => ({
